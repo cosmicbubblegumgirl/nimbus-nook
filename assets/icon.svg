@@ -1,0 +1,16 @@
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nimbus Nook icon">
+  <defs>
+    <linearGradient id="bg" x1="18" y1="14" x2="110" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3A9B9B"/>
+      <stop offset="0.55" stop-color="#8267A6"/>
+      <stop offset="1" stop-color="#EE7B6A"/>
+    </linearGradient>
+  </defs>
+  <rect x="11" y="9" width="106" height="110" rx="27" fill="url(#bg)"/>
+  <path d="M33 92c14 9 48 9 62 0" fill="none" stroke="#FFF8EE" stroke-width="6" stroke-linecap="round" opacity=".82"/>
+  <path d="M45 77c-12 0-21-8-21-19 0-12 10-21 23-21 5-13 17-21 31-21 17 0 31 12 34 28 12 2 20 12 20 24 0 13-11 24-26 24H46c-.5 0-1 0-1-15z" fill="#E7FAFF"/>
+  <circle cx="60" cy="62" r="3.5" fill="#3A9B9B"/>
+  <circle cx="86" cy="62" r="3.5" fill="#3A9B9B"/>
+  <path d="M67 73c5 4 12 4 17 0" fill="none" stroke="#3A9B9B" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="101" cy="25" r="8" fill="#F6C85F"/>
+</svg>

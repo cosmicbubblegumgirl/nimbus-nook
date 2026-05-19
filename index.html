@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Nimbus Nook is an interactive anxiety calming web app with breathing audio, quizzes, journal templates, stickers, and private local data."
+    />
+    <title>Nimbus Nook | Anxiety Calm Studio</title>
+    <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="sky-field" aria-hidden="true">
+      <span class="float-mark mark-one"></span>
+      <span class="float-mark mark-two"></span>
+      <span class="float-mark mark-three"></span>
+      <span class="grain"></span>
+    </div>
+
+    <main id="authView" class="auth-shell">
+      <section class="auth-card" aria-labelledby="authTitle">
+        <div class="brand-lockup">
+          <img src="assets/logo.svg" alt="Nimbus Nook logo" class="logo" />
+          <div>
+            <p class="eyebrow">an anxiety calming studio</p>
+            <h1 id="authTitle">Nimbus Nook</h1>
+          </div>
+        </div>
+        <p class="auth-copy">
+          A private calm space for breathing, sticker journaling, anxiety
+          check-ins, grounding tools, and tiny brave steps.
+        </p>
+
+        <form id="authForm" class="auth-form">
+          <label>
+            <span>Username</span>
+            <input id="usernameInput" autocomplete="username" required minlength="3" />
+          </label>
+          <label>
+            <span>Password</span>
+            <input
+              id="passwordInput"
+              type="password"
+              autocomplete="current-password"
+              required
+              minlength="6"
+            />
+          </label>
+          <button class="primary-action" id="authSubmit" type="submit">Enter the Nook</button>
+          <button class="text-action" id="toggleAuthMode" type="button">
+            Create a new private nook
+          </button>
+          <p id="authMessage" class="status-line" role="status"></p>
+        </form>
+
+        <div class="feature-ribbon" aria-label="Featured tools">
+          <span>cloud breathing</span>
+          <span>60 templates</span>
+          <span>mood insights</span>
+          <span>sticker pages</span>
+        </div>
+      </section>
+    </main>
+
+    <section id="appView" class="app-shell" hidden>
+      <header class="app-header">
+        <a class="brand-lockup compact" href="#homeView" data-nav="home">
+          <img src="assets/logo.svg" alt="Nimbus Nook logo" class="logo small" />
+          <span>Nimbus Nook</span>
+        </a>
+        <nav class="app-nav" aria-label="Primary">
+          <button class="nav-tab active" data-view="home">Nest</button>
+          <button class="nav-tab" data-view="breathe">Breathe</button>
+          <button class="nav-tab" data-view="journal">Journal</button>
+          <button class="nav-tab" data-view="quizzes">Quizzes</button>
+          <button class="nav-tab" data-view="toolkit">Toolkit</button>
+          <button class="nav-tab" data-view="insights">Insights</button>
+        </nav>
+        <button id="logoutButton" class="ghost-action">Log out</button>
+      </header>
+
+      <aside class="support-strip" aria-label="Support note">
+        <strong>Need urgent support?</strong>
+        <span>
+          If you might hurt yourself or someone else, call local emergency services now.
+          In the U.S., call or text <a href="tel:988">988</a> or chat through
+          <a href="https://988lifeline.org/get-help/" target="_blank" rel="noreferrer">988 Lifeline</a>.
+        </span>
+      </aside>
+
+      <main class="views">
+        <section id="homeView" class="view active" aria-labelledby="homeTitle">
+          <div class="section-heading">
+            <p class="eyebrow">your calm nest</p>
+            <h2 id="homeTitle">What does your nervous system need right now?</h2>
+          </div>
+
+          <div class="home-grid">
+            <article class="panel checkin-panel">
+              <div class="panel-title-row">
+                <h3>One-minute check-in</h3>
+                <span id="todayStamp" class="soft-pill"></span>
+              </div>
+              <label class="range-row">
+                <span>Anxiety</span>
+                <input id="anxietyRange" type="range" min="0" max="10" value="4" />
+                <output id="anxietyOutput">4</output>
+              </label>
+              <label class="range-row">
+                <span>Energy</span>
+                <input id="energyRange" type="range" min="0" max="10" value="5" />
+                <output id="energyOutput">5</output>
+              </label>
+              <label class="range-row">
+                <span>Safety</span>
+                <input id="safetyRange" type="range" min="0" max="10" value="7" />
+                <output id="safetyOutput">7</output>
+              </label>
+              <div class="chip-cloud" id="triggerChips" aria-label="Common triggers"></div>
+              <textarea
+                id="checkinNote"
+                rows="3"
+                placeholder="Name the worry, body cue, or tiny need..."
+              ></textarea>
+              <button id="saveCheckin" class="primary-action">Save check-in</button>
+              <p id="checkinMessage" class="status-line" role="status"></p>
+            </article>
+
+            <article class="panel calm-stack">
+              <div class="panel-title-row">
+                <h3>Calm sequence</h3>
+                <span class="soft-pill">2 minutes</span>
+              </div>
+              <ol id="calmSteps" class="calm-steps"></ol>
+              <button id="nextCalmStep" class="secondary-action">Next gentle step</button>
+            </article>
+
+            <article class="panel info-panel">
+              <h3>Anxiety relief map</h3>
+              <div class="info-cards">
+                <button data-info="body">Body signals</button>
+                <button data-info="thoughts">Thought loops</button>
+                <button data-info="actions">Tiny actions</button>
+              </div>
+              <p id="infoText" class="info-text"></p>
+            </article>
+
+            <article class="panel history-panel">
+              <div class="panel-title-row">
+                <h3>Recent weather</h3>
+                <button class="text-action" data-view="insights">Open insights</button>
+              </div>
+              <div id="miniHistory" class="mini-history"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="breatheView" class="view" aria-labelledby="breatheTitle">
+          <div class="section-heading">
+            <p class="eyebrow">lofi cloud breath</p>
+            <h2 id="breatheTitle">Press the cloud and breathe with it.</h2>
+          </div>
+          <div class="breath-grid">
+            <article class="panel breath-stage-panel">
+              <button id="cloudBreathButton" class="cloud-button" type="button">
+                <span class="cloud-lobe one"></span>
+                <span class="cloud-lobe two"></span>
+                <span class="cloud-lobe three"></span>
+                <span class="cloud-label">Breathe</span>
+              </button>
+              <div id="breathCloud" class="breath-cloud" aria-hidden="true">
+                <span></span>
+              </div>
+              <p id="breathPrompt" class="breath-prompt">Choose a pattern, then tap the cloud.</p>
+              <p id="breathCounter" class="breath-counter">00</p>
+            </article>
+
+            <article class="panel breath-controls">
+              <label>
+                <span>Pattern</span>
+                <select id="breathPattern"></select>
+              </label>
+              <div class="control-row">
+                <button id="startBreath" class="primary-action">Start lofi breath</button>
+                <button id="stopBreath" class="ghost-action">Stop</button>
+              </div>
+              <div id="patternDescription" class="soft-note"></div>
+              <div class="breath-prompts" id="breathPromptDeck"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="journalView" class="view" aria-labelledby="journalTitle">
+          <div class="section-heading">
+            <p class="eyebrow">sticker journal</p>
+            <h2 id="journalTitle">Open your Nookbook.</h2>
+          </div>
+
+          <button id="journalCover" class="journal-cover" type="button" aria-expanded="false">
+            <span class="book-spine"></span>
+            <span class="cover-cloud"></span>
+            <strong>Nookbook</strong>
+            <small>tap to open</small>
+          </button>
+
+          <div id="journalStudio" class="journal-studio" hidden>
+            <aside class="template-panel panel">
+              <div class="panel-title-row">
+                <h3>60 page templates</h3>
+                <button id="newPageButton" class="icon-action" title="New page">+</button>
+              </div>
+              <div id="pageList" class="page-list"></div>
+              <div id="templateList" class="template-list"></div>
+            </aside>
+
+            <section class="journal-workbench">
+              <div class="journal-toolbar panel">
+                <input id="pageTitleInput" aria-label="Page title" />
+                <label>
+                  <span>Before</span>
+                  <input id="beforeRange" type="range" min="0" max="10" value="5" />
+                </label>
+                <label>
+                  <span>After</span>
+                  <input id="afterRange" type="range" min="0" max="10" value="4" />
+                </label>
+                <button id="saveJournalPage" class="secondary-action">Save page</button>
+              </div>
+
+              <div id="journalCanvas" class="journal-canvas">
+                <div class="page-meta">
+                  <span id="activeTemplateName"></span>
+                  <span id="savedState">saved</span>
+                </div>
+                <div
+                  id="journalBody"
+                  class="journal-body"
+                  contenteditable="true"
+                  role="textbox"
+                  aria-multiline="true"
+                ></div>
+                <div id="stickerLayer" class="sticker-layer" aria-label="Placed stickers"></div>
+              </div>
+            </section>
+
+            <aside class="sticker-panel panel">
+              <h3>Vibe stickers</h3>
+              <div class="sticker-tools">
+                <button id="clearStickers" class="text-action">Clear stickers</button>
+                <button id="randomSticker" class="text-action">Surprise me</button>
+              </div>
+              <div id="stickerTray" class="sticker-tray"></div>
+              <p class="soft-note">Drag or tap a sticker, then place it anywhere on the page.</p>
+            </aside>
+          </div>
+        </section>
+
+        <section id="quizzesView" class="view" aria-labelledby="quizzesTitle">
+          <div class="section-heading">
+            <p class="eyebrow">pattern quizzes</p>
+            <h2 id="quizzesTitle">Learn what kind of calm might fit today.</h2>
+          </div>
+          <div class="quiz-grid">
+            <aside class="panel quiz-list" id="quizList"></aside>
+            <section class="panel quiz-stage" id="quizStage"></section>
+            <aside class="panel quiz-history">
+              <h3>Quiz history</h3>
+              <div id="quizHistory"></div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="toolkitView" class="view" aria-labelledby="toolkitTitle">
+          <div class="section-heading">
+            <p class="eyebrow">hands-on toolkit</p>
+            <h2 id="toolkitTitle">Small tools for loud moments.</h2>
+          </div>
+
+          <div class="tool-grid">
+            <article class="panel grounding-tool">
+              <h3>5-4-3-2-1 grounding</h3>
+              <div id="groundingInputs" class="grounding-inputs"></div>
+              <button id="saveGrounding" class="secondary-action">Save grounding card</button>
+            </article>
+
+            <article class="panel worry-tool">
+              <h3>Worry float-away</h3>
+              <textarea id="worryInput" rows="4" placeholder="Write one worry without arguing with it."></textarea>
+              <button id="floatWorry" class="primary-action">Float it</button>
+              <div id="worrySky" class="worry-sky"></div>
+            </article>
+
+            <article class="panel plan-tool">
+              <h3>Panic pocket plan</h3>
+              <label><span>Anchor phrase</span><input id="anchorPhrase" /></label>
+              <label><span>Safe person</span><input id="safePerson" /></label>
+              <label><span>Helpful place</span><input id="safePlace" /></label>
+              <button id="savePlan" class="secondary-action">Save plan</button>
+              <p id="planStatus" class="status-line"></p>
+            </article>
+
+            <article class="panel body-tool">
+              <h3>Body kindness map</h3>
+              <div id="bodyMap" class="body-map" aria-label="Body areas"></div>
+              <p id="bodySuggestion" class="soft-note"></p>
+            </article>
+
+            <article class="panel exposure-tool">
+              <div class="panel-title-row">
+                <h3>Brave ladder</h3>
+                <button id="addExposure" class="icon-action" title="Add step">+</button>
+              </div>
+              <div id="exposureList" class="exposure-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="insightsView" class="view" aria-labelledby="insightsTitle">
+          <div class="section-heading">
+            <p class="eyebrow">private patterns</p>
+            <h2 id="insightsTitle">Your data stays in this browser.</h2>
+          </div>
+          <div class="insight-grid">
+            <article class="panel stats-panel" id="insightStats"></article>
+            <article class="panel chart-panel">
+              <h3>Anxiety trend</h3>
+              <svg id="moodChart" viewBox="0 0 640 260" role="img" aria-label="Anxiety trend chart"></svg>
+            </article>
+            <article class="panel source-panel">
+              <h3>Care notes</h3>
+              <p>
+                Nimbus Nook offers self-help tools and reflection prompts, not diagnosis,
+                therapy, or emergency care. Reach out to a qualified professional for
+                ongoing symptoms, panic attacks, trauma responses, or medication questions.
+              </p>
+              <div class="source-links">
+                <a href="https://www.nimh.nih.gov/health/topics/anxiety-disorders" target="_blank" rel="noreferrer">NIMH anxiety information</a>
+                <a href="https://988lifeline.org/get-help/" target="_blank" rel="noreferrer">988 Lifeline help</a>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>Quantum Cupcake creation</span>
+        <span>Nimbus Nook keeps data local to your browser unless you export or share it.</span>
+      </footer>
+    </section>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
