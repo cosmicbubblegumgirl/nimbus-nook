@@ -24,14 +24,6 @@ Nimbus Nook is designed for GitHub Pages hosting, so account records and app dat
 
 The app is static and can be served directly from the `main` branch root.
 
-## Mobile builds
-
-- Android debug APK: `dist/NimbusNook-debug.apk`
-- Android wrapper source: `mobile/android`
-- iPhone wrapper starter: `mobile/ios/NimbusNook`
-
-Building a working `.ipa` requires macOS, Xcode, and an Apple Developer signing identity.
-
 ## Care note
 
 This app is for self-help reflection and regulation support. It is not a diagnosis, therapy, medical advice, or emergency service.

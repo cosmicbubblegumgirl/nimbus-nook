@@ -1,0 +1,16 @@
+{
+  "name": "Nimbus Nook",
+  "short_name": "Nimbus",
+  "description": "An interactive anxiety calming studio with breathing, journaling, quizzes, and private local data.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf1",
+  "theme_color": "#3a9b9b",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "128x128",
+      "type": "image/svg+xml"
+    }
+  ]
+}
